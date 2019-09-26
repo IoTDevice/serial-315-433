@@ -52,7 +52,7 @@ void handleDeviceInfo(){
   message += "\"name\":\""+deviceName +"\",\n";
   message += "\"model\":\"com.iotserv.devices.serial-315-433\",\n";
   message += "\"mac\":\""+WiFi.macAddress()+"\",\n";
-  message += "\"id\":\""+WiFi.macAddress()+"\",\n";
+  message += "\"id\":\""+String(ESP.getChipId())+"\",\n";
   message += "\"ui-support\":[\"web\",\"native\"],\n";
   message += "\"ui-first\":\"native\",\n";
   message += "\"author\":\"Farry\",\n";
@@ -90,7 +90,7 @@ void setup(void){
     // Serial.print(".");
   }
 
-  if (MDNS.begin("esp8266-"+WiFi.macAddress())) {
+  if (MDNS.begin("esp8266"+String(ESP.getChipId()))) {
     // Serial.println("MDNS responder started");
   }
 
