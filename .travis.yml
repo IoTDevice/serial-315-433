@@ -1,67 +1,7 @@
-# Continuous Integration (CI) is the practice, in software
-# engineering, of merging all developer working copies with a shared mainline
-# several times a day < https://docs.platformio.org/page/ci/index.html >
-#
-# Documentation:
-#
-# * Travis CI Embedded Builds with PlatformIO
-#   < https://docs.travis-ci.com/user/integration/platformio/ >
-#
-# * PlatformIO integration with Travis CI
-#   < https://docs.platformio.org/page/ci/travis.html >
-#
-# * User Guide for `platformio ci` command
-#   < https://docs.platformio.org/page/userguide/cmd_ci.html >
-#
-#
-# Please choose one of the following templates (proposed below) and uncomment
-# it (remove "# " before each line) or use own configuration according to the
-# Travis CI documentation (see above).
-#
-
-
-#
-# Template #1: General project. Test it using existing `platformio.ini`.
-#
-
-# language: python
-# python:
-#     - "2.7"
-#
-# sudo: false
-# cache:
-#     directories:
-#         - "~/.platformio"
-#
-# install:
-#     - pip install -U platformio
-#     - platformio update
-#
-# script:
-#     - platformio run
-
-
-#
-# Template #2: The project is intended to be used as a library with examples.
-#
-
-# language: python
-# python:
-#     - "2.7"
-#
-# sudo: false
-# cache:
-#     directories:
-#         - "~/.platformio"
-#
-# env:
-#     - PLATFORMIO_CI_SRC=path/to/test/file.c
-#     - PLATFORMIO_CI_SRC=examples/file.ino
-#     - PLATFORMIO_CI_SRC=path/to/test/directory
-#
-# install:
-#     - pip install -U platformio
-#     - platformio update
-#
-# script:
-#     - platformio ci --lib="." --board=ID_1 --board=ID_2 --board=ID_N
+deploy:
+  provider: releases
+  api_key:
+    secure: SCeXJn+9rHxjWnqHbywqyACf7jYhCzYDCd4bt3VUCKqYh4PZeQJ1ZhHf20kulZCf60wCEtNsjb16FLNAyMRYwJDT3GKzbV1Amo3pYZe4Xejm+7iB1LmfEt0rklP2oMfrr/TMyAGV9lgkoFvl6ifxe8naCbdz7rTCuy+q1nAEYt+eS58roD/y2Fe1MjMx/4HDiD3PK2Cpd2z1x6Zwqg2McZaVIX/mD5b1ogmzjTD4RGl7TtCcuWH8YYag7paA1LT2kJZ9QAHvCAySAAL4hA0UXlB+8QnmTpYpnxk7bjvGRldBDmp1s7V0+a42DQK7KbTpouK7N8app3W5kvgCrdg1LFbVDinALiZ/Q4ruLncVsg4XhbfmqJA+PhAyBg5h5cMhRhXl2ecazfYBIuX1WPr/wRkUzGtfVK01Z3Oifc4Pez6MgI0H4YyvC9kHwUMfyJVeyP/3WC630VsHjVsGCpKEUlnpl7PLV5FExl8LmDoisEtvq1N1NMB6C5MyC4AJ4l/YBx3CwzDxCrbqswCp4gGFZpraawJ+kyuetCAMa6uTvyRhxpDp/QwiuBQv6pE4LI8rq9GCEy7wWt3TA6AmJMiwU6bA55jJQLgWJUibhxgIEnftJ7CaYbuptpZNG6Xyf8JI7ne+VY74yQODw0808CT73lE8mFL9M+MkUfMLtpT6tgU=
+  file: "*"
+  on:
+    repo: IoTDevice/serial-315-433
