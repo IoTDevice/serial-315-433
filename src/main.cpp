@@ -2,11 +2,13 @@
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
+#include <SoftwareSerial.h>
 
 const int httpPort = 80;
 String deviceName = "家用卷帘门";
 String version = "1.0";
 ESP8266WebServer server(httpPort);
+SoftwareSerial mySerial(D5, D6); // RX, TX
 
 const char* serverIndex = "<form method='POST' action='/update' enctype='multipart/form-data'><input type='file' name='update'><input type='submit' value='Update'></form>";
 
@@ -25,10 +27,12 @@ void handleLEDStatusChange(){
     {
       if (server.arg(i)=="up")
       {
-        Serial.write(up,7);
+        if (mySerial.available())
+          mySerial.write(up,7);
       }else if (server.arg(i)=="down")
       {
-        Serial.write(down,7);
+        if (mySerial.available())
+          mySerial.write(down,7);
       }
     }
   }
@@ -65,7 +69,7 @@ void handleNotFound(){
 void setup(void){
   WiFi.mode(WIFI_STA);
   // 选取一种连接路由器的方式 
-  // WiFi.begin(ssid, password);
+  // WiFi.begin("ap", "");
   WiFi.beginSmartConfig();
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -127,7 +131,7 @@ void setup(void){
 
   server.begin();
   // 软串口
-  Serial.begin(9600);
+  mySerial.begin(9600);
 
   MDNS.addService("iotdevice", "tcp", httpPort);
 }
